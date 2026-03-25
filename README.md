@@ -19,6 +19,7 @@ The intended result is a repository that is useful in three ways at once:
 - as a practical codebase for protein-graph experiments
 - as a portfolio-quality or publication-ready foundation for explainable structural bioinformatics
 
+
 ## Project Status
 
 The repository now includes the full first implementation pass:
@@ -33,6 +34,7 @@ The repository now includes the full first implementation pass:
 
 The demo dataset and case studies are intentionally small and educational. The repository is now usable end to end, but it remains designed to be extended with larger curated datasets and stronger experimental protocols.
 
+
 ## Quickstart
 
 For a complete run sequence, see [RUNNING.md](RUNNING.md). The shortest end-to-end path is:
@@ -45,6 +47,7 @@ python 05_training/train_protein_classifier.py --epochs 80
 python 08_case_study/run_case_study.py --case-name lysozyme_active_site
 python 08_case_study/run_case_study.py --case-name beta_lactamase_e104k
 ```
+
 
 ## Implemented Outputs
 
@@ -63,6 +66,7 @@ The repository currently ships with:
 
 Generated figures, explanation JSON files, and checkpoints are written to `artifacts/` during execution and are ignored by Git.
 
+
 ## Repository Quality
 
 This repository now includes:
@@ -71,6 +75,7 @@ This repository now includes:
 - a small `pytest` suite for core math, graph construction, and GNN-LRP regression checks
 - a GitHub Actions workflow for compile and test checks
 - an MIT [LICENSE](LICENSE)
+
 
 ## Why This Repository Exists
 
@@ -89,6 +94,7 @@ Graph neural networks are therefore a strong fit for protein modeling. However, 
 
 This is where GNN-LRP becomes important. Unlike raw gradients, GNN-LRP is built to redistribute prediction evidence through the network in a way that respects relevance conservation and exposes higher-order interaction patterns as relevant walks.
 
+
 ## Central Question
 
 Given a protein structure, can we:
@@ -100,6 +106,7 @@ Given a protein structure, can we:
 
 This repository is organized to answer that question from first principles.
 
+
 ## Audience
 
 This repository is written for:
@@ -110,6 +117,7 @@ This repository is written for:
 - engineers who want clean, modular, reproducible code instead of a one-off notebook
 
 No prior expertise in GNN-LRP is assumed. Basic Python, linear algebra, and introductory deep learning are helpful, but the repository is designed to explain concepts carefully and incrementally.
+
 
 ## What You Will Learn
 
@@ -128,6 +136,7 @@ By the end of the full repository, the reader should be able to:
 - visualize important residues on both the graph and the protein structure
 - compare explanation maps between wild-type and mutant structures
 
+
 ## Repository Roadmap
 
 The repository is intentionally structured as a teaching pipeline. Each folder corresponds to a conceptual jump.
@@ -144,6 +153,7 @@ The repository is intentionally structured as a teaching pipeline. Each folder c
 | `08_case_study/` | Biological examples: active-site importance and mutation analysis |
 | `notebooks/` | Notebook-based teaching material and walkthroughs |
 | `utils/` | Shared utilities, constants, plotting, and helper functions |
+
 
 ## Folder Structure
 
@@ -164,6 +174,7 @@ gnn-protein-lrp/
 `-- utils/
 ```
 
+
 ## Technical Scope
 
 ### 1. Graph Theory Basics
@@ -181,9 +192,9 @@ These foundations matter because many GNN layers are best understood as learnabl
 
 The repository implements a simple graph convolution layer based on the standard normalized propagation rule:
 
-```math
+$$
 H^{(l+1)} = \sigma(\hat{A} H^{(l)} W^{(l)})
-```
+$$
 
 where:
 
@@ -297,27 +308,28 @@ To regenerate the full set of teaching GIFs:
 python scripts/publish_manim.py --quality l
 ```
 
+
 ## Mathematical Preview
 
 ### Basic Graph Objects
 
 For a graph with `n` nodes:
 
-```math
+$$
 A_{ij} =
 \begin{cases}
 1, & \text{if nodes } i \text{ and } j \text{ are connected} \\
 0, & \text{otherwise}
 \end{cases}
-```
+$$
 
-```math
+$$
 D_{ii} = \sum_j A_{ij}
-```
+$$
 
-```math
+$$
 L = D - A
-```
+$$
 
 The Laplacian measures how each node differs from its neighborhood and is central to spectral graph methods.
 
@@ -328,23 +340,23 @@ The Laplacian measures how each node differs from its neighborhood and is centra
 
 For GCNs, we usually add self-loops and normalize:
 
-```math
+$$
 \tilde{A} = A + I
-```
+$$
 
-```math
+$$
 \tilde{D}_{ii} = \sum_j \tilde{A}_{ij}
-```
+$$
 
-```math
+$$
 \hat{A} = \tilde{D}^{-1/2} \tilde{A} \tilde{D}^{-1/2}
-```
+$$
 
 This produces the standard update:
 
-```math
+$$
 H^{(l+1)} = \sigma(\hat{A} H^{(l)} W^{(l)})
-```
+$$
 
 Interpretation:
 
@@ -359,9 +371,9 @@ Interpretation:
 
 Layer-wise relevance propagation redistributes a model output score backward through the network:
 
-```math
+$$
 \sum_i R_i^{(l)} = \sum_j R_j^{(l+1)} = f(x)
-```
+$$
 
 Informally, the prediction score is not treated as a derivative but as evidence that must be reassigned to lower-level components.
 
@@ -372,6 +384,7 @@ For GNNs, this becomes more subtle because:
 - important evidence may emerge from a sequence of interactions, not a single local term
 
 GNN-LRP addresses this by decomposing predictions into contributions associated with graph walks and higher-order interaction patterns.
+
 
 ## Why Proteins Are Naturally Graphs
 
@@ -389,6 +402,7 @@ Graph representations capture what sequence-only or voxel-based abstractions can
 - neighborhood chemistry
 - paths linking distant but functionally coupled residues
 
+
 ## Why Explainability Matters in Protein GNNs
 
 A protein model that predicts correctly but cannot justify itself is limited. In biological settings, explanations are needed to:
@@ -399,6 +413,7 @@ A protein model that predicts correctly but cannot justify itself is limited. In
 - prioritize mutations or wet-lab follow-up
 
 This repository emphasizes explanation quality, not only predictive accuracy.
+
 
 ## Gradients vs LRP
 
@@ -426,6 +441,7 @@ In practice, LRP is often better aligned with the goal of tracing predictive evi
 
 In graphs, evidence can arise from combinations of nodes and edges that only become meaningful together. GNN-LRP explicitly supports this by identifying relevant walks and interaction patterns instead of reducing the explanation to isolated pointwise scores.
 
+
 ## Over-Smoothing and Other Modeling Challenges
 
 The theory sections of this repository also explain common GNN issues:
@@ -436,6 +452,7 @@ The theory sections of this repository also explain common GNN issues:
 - explanation ambiguity: important residues may appear in multiple interacting walks
 
 These issues matter directly for proteins, where both local chemistry and long-range structure can be decisive.
+
 
 ## Biological Case Studies
 
@@ -455,6 +472,7 @@ A wild-type and mutated protein pair is compared by:
 - visualizing how relevance shifts around the mutation site and its structural neighborhood
 
 This case study is intended to demonstrate how explainability can support mechanistic reasoning, not just predictive reporting.
+
 
 ## Reference Papers
 
@@ -476,6 +494,7 @@ The repository is grounded in a small set of foundational papers that are explai
    Core idea: protein structure can be learned from geometric representations in a biologically meaningful way, reinforcing the broader case for structure-aware deep learning in proteins.  
    Link: https://doi.org/10.1038/s41592-019-0666-6
 
+
 ## Reference Implementations
 
 Two public implementations are especially relevant as inspiration:
@@ -489,6 +508,7 @@ This repository does not copy those codebases directly. Instead, it:
 - separate theory from engineering details
 - adapt the methodology to protein graphs and biological interpretation
 
+
 ## Design Principles
 
 The implementation follows a few strict principles:
@@ -499,6 +519,7 @@ The implementation follows a few strict principles:
 - compact dependencies where possible
 - explicit data preprocessing
 - educational clarity without sacrificing correctness
+
 
 ## Installation
 
@@ -519,6 +540,7 @@ Notes:
 - BioPython is the default dependency for PDB parsing to keep the stack minimal
 - Manim GIF rendering also expects a working local multimedia stack, including `ffmpeg`
 
+
 ## Repository Deliverables
 
 The repository contains:
@@ -531,6 +553,7 @@ The repository contains:
 - GNN-LRP code for node, edge, and walk relevance
 - figure-generation scripts for graph and structure visualizations
 - biologically interpretable case studies
+
 
 ## What Makes This Repository Different
 
@@ -548,9 +571,11 @@ This project is designed to bridge that gap. The intent is to make every modelin
 - why relevant walks are a natural explanation unit for graph models
 
 
+
 ## Citation and Credit
 
 If you use ideas from this repository in research or teaching, please cite the primary papers above and credit this repository appropriately.
+
 
 ## Summary
 
@@ -562,6 +587,5 @@ This repository is a structured path from:
 - to explainable structural learning
 
 The long-term objective is not only to build a working protein GNN, but to make its predictions biologically inspectable through GNN-LRP.
-#   p r o t e i n - g r a p h s - f r o m - s c r a t c h 
- 
- 
+# protein-graphs-from-scratch
+
