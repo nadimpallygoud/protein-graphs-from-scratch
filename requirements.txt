@@ -1,0 +1,14 @@
+numpy>=1.26
+scipy>=1.11
+pandas>=2.2
+scikit-learn>=1.4
+matplotlib>=3.8
+seaborn>=0.13
+networkx>=3.2
+tqdm>=4.66
+biopython>=1.83
+manim>=0.20
+torch>=2.3
+torch-geometric>=2.5
+jupyter>=1.0
+pytest>=8.0

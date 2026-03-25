@@ -1,0 +1,7 @@
+pdb_id,chain_id,label,label_name,notes
+1LYZ,A,1,enzyme,Hen egg-white lysozyme
+1BTL,A,1,enzyme,TEM-1 beta-lactamase
+1AKE,A,1,enzyme,Adenylate kinase
+1UBQ,A,0,non_enzyme,Ubiquitin
+4HHB,A,0,non_enzyme,Hemoglobin alpha chain
+1PTS,A,0,non_enzyme,Streptavidin chain A

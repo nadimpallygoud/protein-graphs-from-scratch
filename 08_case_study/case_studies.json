@@ -1,0 +1,24 @@
+{
+  "lysozyme_active_site": {
+    "pdb_id": "1LYZ",
+    "chain_id": "A",
+    "label": 1,
+    "label_name": "enzyme",
+    "description": "Hen egg-white lysozyme with classical catalytic residues Glu35 and Asp52.",
+    "known_residues": [35, 52]
+  },
+  "beta_lactamase_e104k": {
+    "pdb_id": "1BTL",
+    "chain_id": "A",
+    "label": 1,
+    "label_name": "enzyme",
+    "description": "TEM-1 beta-lactamase with an in silico E104K mutation for explanation comparison.",
+    "known_residues": [70, 73, 104, 130, 166, 234],
+    "mutation": {
+      "chain_id": "A",
+      "residue_number": 104,
+      "from": "GLU",
+      "to": "LYS"
+    }
+  }
+}
