@@ -1,4 +1,4 @@
- GNNs for Protein Graphs + Explainability with GNN-LRP
+ # GNNs for Protein Graphs + Explainability with GNN-LRP
 
 An end-to-end educational and research-grade repository for learning graph neural networks from first principles, applying them to protein structure graphs, and interpreting predictions with GNN-LRP.
 
